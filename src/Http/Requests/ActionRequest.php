@@ -2,9 +2,9 @@
 
 namespace Outl1ne\DependencyContainer\Http\Requests;
 
-use Alexwenzel\DependencyContainer\HasDependencies;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Alexwenzel\DependencyContainer\DependencyContainer;
+use Outl1ne\DependencyContainer\HasDependencies;
+use Outl1ne\DependencyContainer\DependencyContainer;
 use Laravel\Nova\Http\Requests\ActionRequest as NovaActionRequest;
 
 class ActionRequest extends NovaActionRequest
