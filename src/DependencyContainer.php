@@ -5,9 +5,15 @@ namespace Outl1ne\DependencyContainer;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\FieldCollection;
+use Laravel\Nova\ResolvesFields;
+use Illuminate\Http\Resources\ConditionallyLoadsAttributes;
+use Laravel\Nova\FillsFields;
 
 class DependencyContainer extends Field
 {
+    use ResolvesFields, ConditionallyLoadsAttributes;
+
     /**
      * The field's component.
      *
@@ -218,9 +224,12 @@ class DependencyContainer extends Field
      */
     public function fillInto(NovaRequest $request, $model, $attribute, $requestAttribute = null)
     {
-        foreach ($this->meta['fields'] as $field) {
-            $field->fill($request, $model);
-        }
+        $fields = FieldCollection::make(array_values($this->filter($this->meta['fields'])))
+            ->withoutReadonly($request)
+            ->withoutUnfillable();
+
+
+        return $fields->map->fill($request, $model);
     }
 
     /**
