@@ -146,7 +146,7 @@ export default {
 
     fill(formData) {
       if (this.dependenciesSatisfied) {
-        _.each(this.field.fields, field => {
+        this.field.fields.forEach(field => {
           if (field.fill) {
             field.fill(formData);
           }
